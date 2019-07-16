@@ -11,3 +11,36 @@ a.navbar-brand {
   font-weight: 100;
   color: white;
 }
+
+.hero {
+  background: image_url('hero.jpg') no-repeat center center fixed;
+  height: 370px; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  box-shadow: 0px 1px 3px #2a2a2a;
+}
+
+h1, h2, h3, h4, h5, h6, .navbar {
+  margin: 0;
+}
+
+.frosty {
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+}
+
+.frosty h1 {
+  text-shadow: rgba(0, 0, 0, 0.5) 1px 1px;
+  font-weight: 200;
+}
+
+.frosty h2 {
+  font-weight: 100;
+  text-shadow: rgba(0, 0, 0, 0.2) 1px 1px;
+}
+
+.btn {
+  border-radius: 0;
+}
