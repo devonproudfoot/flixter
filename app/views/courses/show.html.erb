@@ -13,7 +13,7 @@
       <% if current_user && current_user == @course.user %>
         <br />
         <br />
-        <%= link_to 'Administer', instructor_course_path(@course), class: 'btn btn-danger btn-large' %>
+        <%= link_to 'Edit', instructor_course_path(@course), class: 'btn btn-danger btn-large' %>
       <% end %>
 
     </div>
