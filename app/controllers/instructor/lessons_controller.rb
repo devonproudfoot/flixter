@@ -2,7 +2,6 @@ class Instructor::LessonsController < ApplicationController
   before_action :authenticate_user!
   before_action :require_authorized_for_current_selection
 
-
   def new
     @lesson = Lesson.new
   end
