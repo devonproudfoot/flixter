@@ -24,7 +24,17 @@
       <%= @course.description %>
     </div>
 
-    
+    <br />
+    <br />
+
+    <!-- Show badge for logging in -->
+    <% if current_user && current_user.enrolled_in?(@course) %>
+      <h3 class="badge badge-info offset-1">You are enrolled!</h3>
+    <% else %>
+      <%= link_to "Enroll", course_enrollments_path(@course), class: 'btn btn-primary offset-1', method: :post %>
+    <% end %>
+
+    <!-- show each section and lesson -->
     <div class="col-12">
       <% @course.sections.each do |section| %>
       <br />
