@@ -1,4 +1,22 @@
 <br />
+
+<script>
+  $(function() {
+    $('.lessons').sortable({
+      update: function( event, ui ) {
+        $.ajax({
+          type: 'PUT',
+          // Added this bit of code from stack overflow
+          //https://stackoverflow.com/questions/7203304/warning-cant-verify-csrf-token-authenticity-rails
+          beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+          url: ui.item.data('update-url'),
+          dataType: 'json',
+          data: { lesson: { row_order_position: ui.item.index() } }
+        });
+      }
+    });
+  });
+</script>
 <div class="booyah-box col-10 offset-1">
   <h1><%= current_course.title %></h1>
   <% if current_course.image.url %>
@@ -19,9 +37,9 @@
         <%= section.title %>
         <%= link_to 'New Lesson', new_instructor_section_lesson_path(section), class: 'float-right btn btn-primary btn-sm' %>
         <br class="clr" />
-        <ul>
-          <% section.lessons.each do |lesson| %>
-            <li>
+        <ul class="lessons">
+          <% section.lessons.rank(:row_order).each do |lesson| %>
+            <li data-update-url=<%= instructor_lesson_path(lesson) %>>
               <b><%= lesson.title %></b>
               -
               <%= lesson.subtitle %>
