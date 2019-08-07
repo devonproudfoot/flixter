@@ -53,7 +53,7 @@
 
     <!-- show each section and lesson -->
     <div class="col-12">
-      <% @course.sections.each do |section| %>
+      <% @course.sections.rank(:row_order).each do |section| %>
       <br />
         <div class="section text-center">
           <h3>
