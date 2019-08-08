@@ -1,9 +1,9 @@
 <br />
 
 <script>
-  // want to be able to combine these into one function
   $(function() {
-    $('.lessons').sortable({
+    var draggable_list = function(css_selector, data_key) {
+      $(css_selector).sortable({
       update: function( event, ui ) {
         $.ajax({
           type: 'PUT',
@@ -12,25 +12,14 @@
           beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
           url: ui.item.data('update-url'),
           dataType: 'json',
-          data: { lesson: { row_order_position: ui.item.index() } }
+          data: { [data_key]: { row_order_position: ui.item.index() } }
         });
       }
     });
-  });
-</script>
-<script>
-  $(function () {
-    $('.sections').sortable({
-      update: function( event, ui ) {
-        $.ajax({
-          type: 'PUT',
-          beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
-          url: ui.item.data('update-url'),
-          dataType: 'json',
-          data: { section: { row_order_position: ui.item.index() } }
-        });
-      }
-    });
+    }
+
+    draggable_list('.lessons', 'lesson');
+    draggable_list('.sections', 'section');
   });
 </script>
 <div class="booyah-box col-10 offset-1">
