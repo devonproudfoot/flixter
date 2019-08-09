@@ -32,9 +32,37 @@
   <br />
 
   <div class="text-center">
-    <%= link_to 'Add a Section', new_instructor_course_section_path(current_course), class: 'btn btn-primary btn-lg' %>
+    <button type="button" class="btn btn-primary btn-lrg" data-toggle="modal" data-target="#createSection">
+      Add a Section
+    </button>
   </div>
+
   <br />
+
+  <!-- start New section modals --->
+  <div class="modal fade" id="createSection" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Add a Section</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <%= simple_form_for @section, url: instructor_course_sections_path(current_course) do |f| %>
+          <%= f.input :title %>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <%= f.submit 'Add a Section', class: 'btn btn-primary' %>
+          </div>
+        <% end %> 
+      </div>
+    </div>
+  </div>
+
+  <!--- end modal --->
 
   <ul class="sections">
     <% current_course.sections.rank(:row_order).each do |section| %>
