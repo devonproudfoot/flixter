@@ -1,10 +1,44 @@
 <div class="booyah-box col-10 offset-1">
   <h1>What I'm learning</h1>
   <% current_user.enrolled_courses.each do |course| %>
+    <%= link_to course.title, course_path(course) %> 
     <% if course.image.url %>
+      <br />
       <%= image_tag course.image.url, class: 'img-fluid' %>
+      <br />
+      <br />
     <% end %>
-    <h3><%= course.title %></h3>
-    <p><%= course.description %></p>
+    <div class="row">
+      <div class="col-12 col-sm-8">
+        <%= course.description %>
+      </div>
+      <div class="col-12 col-sm-4 text-center">
+        <%= link_to 'More Info', course_path(course), class: 'btn btn-large btn-primary' %>
+      </div>
+    </div>
+    <hr class="col-8 offset-2" />
+    <br />
   <% end %>
+
+  <h1>What I'm teaching</h1>
+  <% current_user.courses.each do |course| %>
+    <hr />
+    <%= link_to course.title, course_path(course) %> 
+    <% if course.image.url %>
+      <br />
+      <%= image_tag course.image.url, class: 'img-fluid' %>
+      <br />
+      <br />
+    <% end %>
+    <div class="row">
+      <div class="col-12 col-sm-8">
+        <%= course.description %>
+      </div>
+      <div class="col-12 col-sm-4 text-center">
+        <%= link_to 'More Info', course_path(course), class: 'btn btn-large btn-primary' %>
+      </div>
+    </div>
+  <% end %>
+  <hr class="col-8 offset-2" />
+  <br />
 </div>
