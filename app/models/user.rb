@@ -10,7 +10,6 @@ class User < ApplicationRecord
 
 # Need to refactor this using the through statement! But it works for now!
   def enrolled_in?(course)
-    # enrolled_courses = enrollments.collect(&:course)
     return enrolled_courses.include?(course)
   end
 end
