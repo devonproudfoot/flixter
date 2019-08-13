@@ -17,5 +17,4 @@ class LessonsController < ApplicationController
       redirect_to course_path(current_lesson.section.course), alert: 'You must register for the course to view the lessons!'
     end
   end
-
 end
