@@ -16,10 +16,16 @@
         });
       }
     });
-    }
+    };
 
     draggable_list('.lessons', 'lesson');
     draggable_list('.sections', 'section');
+
+    $('.new-lesson-button').click(function ( event ) {
+      var lessonUrl = $(event.target).data('lesson-url');
+      $('#newLessonForm').attr('action', lessonUrl);
+    });
+
   });
 </script>
 <div class="booyah-box col-10 offset-1">
@@ -64,6 +70,39 @@
 
   <!--- end modal --->
 
+
+  <div class="modal fade" id="createLesson" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Add a Lesson</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+        <%= simple_form_for @lesson, url: '#', html: { id: 'newLessonForm' } do |f| %>
+          <%= f.input :title %>
+          <%= f.input :subtitle %>
+          <%= f.input :video %>
+          </div>
+          <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <%= f.submit 'Add a Lesson', class: 'btn btn-primary' %>
+          </div>
+        <% end %> 
+      </div>
+    </div>
+  </div>
+
+
+  <!-- start lessons modal --->
+
+
+
+
+  <!-- end modal --->
+
   <ul class="sections">
     <% current_course.sections.rank(:row_order).each do |section| %>
       <li data-update-url="<%= instructor_section_path(section) %>" class="section-li">
@@ -71,7 +110,11 @@
           <span class="fa fa-ellipsis-v"></span>
           <%= section.title %>
         </div>
-        <%= link_to 'New Lesson', new_instructor_section_lesson_path(section), class: 'float-right btn btn-primary btn-sm' %>
+        <div class="text-center">
+          <button type="button" class="new-lesson-button float-right btn btn-primary btn-sm" data-toggle="modal" data-target="#createLesson" data-lesson-url="<%= instructor_section_lessons_path(section) %>">
+            Add a Lesson
+          </button>
+        </div>
         <br class="clr" />
         <br class="clr" />
         <ul class="lessons">
