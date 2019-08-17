@@ -5,6 +5,11 @@ class Instructor::SectionsController < ApplicationController
 
   def create
     @section = current_course.sections.create(section_params)
+    if @section.invalid?
+      flash[:alert] = '<strong>Section not saved! Data is not valid!</strong>'
+    else
+      flash[:notice] = 'Section created!'
+    end
     redirect_to instructor_course_path(current_course)
   end
 

@@ -5,6 +5,11 @@ class Instructor::LessonsController < ApplicationController
 
   def create
     @lesson = current_section.lessons.create(lesson_params)
+    if @lesson.invalid?
+      flash[:alert] = '<strong>Lesson not saved! Data is not valid!</strong>'
+    else
+      flash[:notice] = 'Lesson successfully created!'
+    end
     redirect_to instructor_course_path(current_section.course)
   end
 
